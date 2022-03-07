@@ -36,11 +36,11 @@ export class AppModule {}
 
 ```typescript
 import { Injectable } from '@nestjs/common';
-import { FirebaseAuthenticationService } from '@aginix/nestjs-firebase-admin';
+import { Auth } from 'firebase-admin/auth';
 
 @Injectable()
 export class AppService {
-  constructor(private firebaseAuth: FirebaseAuthenticationService) {}
+  constructor(private firebaseAuth: Auth) {}
 
   getUsers() {
     return this.firebaseAuth.listUsers()
