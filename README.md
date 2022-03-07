@@ -1,7 +1,3 @@
-<a href="https://www.npmjs.com/@aginix/nestjs-firebase-admin"><img src="https://img.shields.io/npm/v/@aginix/nestjs-firebase-admin.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/@aginix/nestjs-firebase-admin"><img src="https://img.shields.io/npm/l/@aginix/nestjs-firebase-admin.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/@aginix/nestjs-firebase-admin"><img src="https://img.shields.io/npm/dm/@aginix/nestjs-firebase-admin.svg" alt="NPM Downloads" /></a>
-
 ## Description
 
 Firebase Admin v10 Module for [Nest.js Framework](https://nestjs.com/)
