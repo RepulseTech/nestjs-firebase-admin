@@ -1,7 +1,7 @@
-import * as admin from 'firebase-admin';
 import { ModuleMetadata } from '@nestjs/common/interfaces';
+import { AppOptions } from 'firebase-admin/app';
 
-export interface FirebaseAdminModuleOptions extends admin.AppOptions {}
+export interface FirebaseAdminModuleOptions extends AppOptions {}
 
 export interface FirebaseAdminModuleAsyncOptions extends Pick<ModuleMetadata, 'imports'> {
   name?: string;

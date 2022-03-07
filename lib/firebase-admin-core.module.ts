@@ -1,5 +1,5 @@
 import { Global, Module, DynamicModule, Provider } from '@nestjs/common';
-import * as admin from 'firebase-admin';
+import { App, getApps, initializeApp } from 'firebase-admin/app';
 import { FirebaseAdminModuleAsyncOptions, FirebaseAdminModuleOptions } from './firebase-admin.interface';
 import { FIREBASE_ADMIN_MODULE_OPTIONS } from './firebase-admin.constant';
 import {
@@ -30,7 +30,7 @@ export class FirebaseAdminCoreModule {
       useValue: options,
     };
 
-    const app = admin.apps.length === 0 ? admin.initializeApp(options) : admin.apps[0];
+    const app = getApps().length === 0 ? initializeApp(options) : getApps()[0];
 
     const providers = this.createProviders(app);
 
@@ -41,7 +41,7 @@ export class FirebaseAdminCoreModule {
     };
   }
 
-  private static createProviders(app: admin.app.App): Provider<any>[] {
+  private static createProviders(app: App): Provider<any>[] {
     return PROVIDERS.map<Provider>((ProviderService) => ({
       provide: ProviderService,
       useFactory: () => new ProviderService(app),
@@ -69,7 +69,7 @@ export class FirebaseAdminCoreModule {
     return PROVIDERS.map<Provider>((ProviderService) => ({
       provide: ProviderService,
       useFactory: (options: FirebaseAdminModuleOptions) => {
-        const app = admin.apps.length === 0 ? admin.initializeApp(options) : admin.apps[0];
+        const app = getApps().length === 0 ? initializeApp(options) : getApps()[0];
         return new ProviderService(app);
       },
       inject: [FIREBASE_ADMIN_MODULE_OPTIONS],

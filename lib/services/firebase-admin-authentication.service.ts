@@ -1,54 +1,78 @@
 import { Injectable } from '@nestjs/common';
-import * as admin from 'firebase-admin';
+import { App } from 'firebase-admin/app';
+import {
+  ActionCodeSettings,
+  Auth,
+  AuthProviderConfig,
+  AuthProviderConfigFilter,
+  CreateRequest,
+  DecodedIdToken,
+  DeleteUsersResult,
+  GetUsersResult,
+  ListProviderConfigResults,
+  ListUsersResult,
+  SessionCookieOptions,
+  TenantManager,
+  UpdateAuthProviderRequest,
+  UpdateRequest,
+  UserImportOptions,
+  UserImportRecord,
+  UserImportResult,
+  UserRecord,
+} from 'firebase-admin/auth';
+import { getAuth } from 'firebase-admin/auth';
 
 @Injectable()
-export class FirebaseAuthenticationService implements admin.auth.Auth {
-  constructor(public readonly app: admin.app.App) {}
+export class FirebaseAuthenticationService implements Auth {
+  constructor(public readonly app: App) {}
+  private readonly tenantManager_ = this.tenantManager();
+  private readonly app_;
+  private verifyDecodedJWTNotRevokedOrDisabled;
 
   get auth() {
     if (!this.app) {
       throw new Error('Firebase instance is undefined.');
     }
-    return this.app.auth();
+    return getAuth(this.app);
   }
 
-  tenantManager(): admin.auth.TenantManager {
+  tenantManager(): TenantManager {
     return this.auth.tenantManager();
   }
   createCustomToken(uid: string, developerClaims?: Object): Promise<string> {
     return this.auth.createCustomToken(uid, developerClaims);
   }
-  createUser(properties: admin.auth.CreateRequest): Promise<admin.auth.UserRecord> {
+  createUser(properties: CreateRequest): Promise<UserRecord> {
     return this.auth.createUser(properties);
   }
   deleteUser(uid: string): Promise<void> {
     return this.auth.deleteUser(uid);
   }
-  deleteUsers(uids: string[]): Promise<admin.auth.DeleteUsersResult> {
+  deleteUsers(uids: string[]): Promise<DeleteUsersResult> {
     return this.auth.deleteUsers(uids);
   }
-  getUser(uid: string): Promise<admin.auth.UserRecord> {
+  getUser(uid: string): Promise<UserRecord> {
     return this.auth.getUser(uid);
   }
-  getUserByEmail(email: string): Promise<admin.auth.UserRecord> {
+  getUserByEmail(email: string): Promise<UserRecord> {
     return this.auth.getUserByEmail(email);
   }
-  getUserByPhoneNumber(phoneNumber: string): Promise<admin.auth.UserRecord> {
+  getUserByPhoneNumber(phoneNumber: string): Promise<UserRecord> {
     return this.auth.getUserByPhoneNumber(phoneNumber);
   }
-  getUserByProviderUid(providerId: string, uid: string): Promise<admin.auth.UserRecord> {
+  getUserByProviderUid(providerId: string, uid: string): Promise<UserRecord> {
     return this.auth.getUserByProviderUid(providerId, uid);
   }
-  getUsers(identifiers: admin.auth.UserRecord[]): Promise<admin.auth.GetUsersResult> {
+  getUsers(identifiers: UserRecord[]): Promise<GetUsersResult> {
     return this.auth.getUsers(identifiers);
   }
-  listUsers(maxResults?: number, pageToken?: string): Promise<admin.auth.ListUsersResult> {
+  listUsers(maxResults?: number, pageToken?: string): Promise<ListUsersResult> {
     return this.auth.listUsers(maxResults, pageToken);
   }
-  updateUser(uid: string, properties: admin.auth.UpdateRequest): Promise<admin.auth.UserRecord> {
+  updateUser(uid: string, properties: UpdateRequest): Promise<UserRecord> {
     return this.auth.updateUser(uid, properties);
   }
-  verifyIdToken(idToken: string, checkRevoked?: boolean): Promise<admin.auth.DecodedIdToken> {
+  verifyIdToken(idToken: string, checkRevoked?: boolean): Promise<DecodedIdToken> {
     return this.auth.verifyIdToken(idToken, checkRevoked);
   }
   setCustomUserClaims(uid: string, customUserClaims: Object): Promise<void> {
@@ -57,43 +81,37 @@ export class FirebaseAuthenticationService implements admin.auth.Auth {
   revokeRefreshTokens(uid: string): Promise<void> {
     return this.auth.revokeRefreshTokens(uid);
   }
-  importUsers(
-    users: admin.auth.UserImportRecord[],
-    options?: admin.auth.UserImportOptions,
-  ): Promise<admin.auth.UserImportResult> {
+  importUsers(users: UserImportRecord[], options?: UserImportOptions): Promise<UserImportResult> {
     return this.auth.importUsers(users, options);
   }
-  createSessionCookie(idToken: string, sessionCookieOptions: admin.auth.SessionCookieOptions): Promise<string> {
+  createSessionCookie(idToken: string, sessionCookieOptions: SessionCookieOptions): Promise<string> {
     return this.auth.createSessionCookie(idToken, sessionCookieOptions);
   }
-  verifySessionCookie(sessionCookie: string, checkForRevocation?: boolean): Promise<admin.auth.DecodedIdToken> {
+  verifySessionCookie(sessionCookie: string, checkForRevocation?: boolean): Promise<DecodedIdToken> {
     return this.auth.verifySessionCookie(sessionCookie, checkForRevocation);
   }
-  generatePasswordResetLink(email: string, actionCodeSettings?: admin.auth.ActionCodeSettings): Promise<string> {
+  generatePasswordResetLink(email: string, actionCodeSettings?: ActionCodeSettings): Promise<string> {
     return this.auth.generatePasswordResetLink(email, actionCodeSettings);
   }
-  generateEmailVerificationLink(email: string, actionCodeSettings?: admin.auth.ActionCodeSettings): Promise<string> {
+  generateEmailVerificationLink(email: string, actionCodeSettings?: ActionCodeSettings): Promise<string> {
     return this.auth.generateEmailVerificationLink(email, actionCodeSettings);
   }
-  generateSignInWithEmailLink(email: string, actionCodeSettings: admin.auth.ActionCodeSettings): Promise<string> {
+  generateSignInWithEmailLink(email: string, actionCodeSettings: ActionCodeSettings): Promise<string> {
     return this.auth.generateSignInWithEmailLink(email, actionCodeSettings);
   }
-  listProviderConfigs(options: admin.auth.AuthProviderConfigFilter): Promise<admin.auth.ListProviderConfigResults> {
+  listProviderConfigs(options: AuthProviderConfigFilter): Promise<ListProviderConfigResults> {
     return this.auth.listProviderConfigs(options);
   }
-  getProviderConfig(providerId: string): Promise<admin.auth.AuthProviderConfig> {
+  getProviderConfig(providerId: string): Promise<AuthProviderConfig> {
     return this.auth.getProviderConfig(providerId);
   }
   deleteProviderConfig(providerId: string): Promise<void> {
     return this.auth.deleteProviderConfig(providerId);
   }
-  updateProviderConfig(
-    providerId: string,
-    updatedConfig: admin.auth.UpdateAuthProviderRequest,
-  ): Promise<admin.auth.AuthProviderConfig> {
+  updateProviderConfig(providerId: string, updatedConfig: UpdateAuthProviderRequest): Promise<AuthProviderConfig> {
     return this.auth.updateProviderConfig(providerId, updatedConfig);
   }
-  createProviderConfig(config: admin.auth.AuthProviderConfig): Promise<admin.auth.AuthProviderConfig> {
+  createProviderConfig(config: AuthProviderConfig): Promise<AuthProviderConfig> {
     return this.auth.createProviderConfig(config);
   }
 }
