@@ -1,6 +1,6 @@
 {
   "name": "@repulsetech/nestjs-firebase-admin",
-  "version": "10.0.0",
+  "version": "10.1.0",
   "description": "Firebase Admin v10 module for Nest framework",
   "authors": [
     {
