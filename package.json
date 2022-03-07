@@ -1,29 +1,27 @@
 {
-  "name": "@aginix/nestjs-firebase-admin",
-  "version": "2.2.0",
-  "description": "Firebase Admin module for Nest framework",
+  "name": "@repulsetech/nestjs-firebase-admin",
+  "version": "10.0.0",
+  "description": "Firebase Admin v10 module for Nest framework",
   "authors": [
     {
-      "name": "Nonpawit Teerachetmongkol",
-      "email": "nonpawit.tee@aginix.tech"
+      "name": "Repulse Technologies",
+      "email": "contact@repulse.tech"
     },
     {
-      "name": "Michael Musso",
-      "email": "mmusso@smth.it"
+      "name": "Raj Kishore",
+      "email": "raj@repulse.tech"
     }
   ],
   "main": "./dist/index.js",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Aginix/nestjs-firebase-admin.git"
+    "url": "https://github.com/RepulseTech/nestjs-firebase-admin.git"
   },
   "scripts": {
-    "test": "jest --config jest.json",
-    "test:dev": "jest --config jest.json --watch",
     "precommit": "lint-staged",
     "prettier": "prettier src/**/*.ts --write && git status",
-    "build": "rimraf dist && npm run build:lib && npm test",
+    "build": "rimraf dist && npm run build:lib",
     "build:lib": "tsc -p tsconfig.json",
     "prepublish:npm": "npm run build",
     "publish:npm": "npm publish --access public",
@@ -32,29 +30,26 @@
     "prepare": "npm run build"
   },
   "peerDependencies": {
-    "@nestjs/common": "^8.0.0",
-    "@nestjs/core": "^8.0.0"
+    "@nestjs/common": "^8.4.0",
+    "@nestjs/core": "^8.4.0"
   },
   "dependencies": {
     "firebase-admin": "^10.0.2"
   },
   "devDependencies": {
-    "@nestjs/common": "^8.0.0",
-    "@nestjs/core": "^8.0.0",
-    "@nestjs/testing": "^8.0.0",
-    "@types/jest": "^26.0.10",
-    "@types/node": "13.13.5",
-    "dotenv": "^8.1.0",
-    "husky": "^4.3.8",
-    "jest": "^27.5.1",
-    "lint-staged": "10.5.3",
-    "prettier": "2.2.1",
+    "@nestjs/common": "^8.4.0",
+    "@nestjs/core": "^8.4.0",
+    "@types/jest": "^27.4.1",
+    "@types/node": "17.0.21",
+    "dotenv": "^16.0.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "husky": "^7.0.4",
+    "lint-staged": "12.3.5",
+    "prettier": "2.5.1",
     "reflect-metadata": "^0.1.13",
-    "rimraf": "^3.0.0",
-    "supertest": "4.0.2",
-    "ts-jest": "^26.5.6",
+    "rimraf": "^3.0.2",
     "tslint": "^6.1.3",
-    "typescript": "^4.3.5"
+    "typescript": "^4.6.2"
   },
   "lint-staged": {
     "*.ts": [

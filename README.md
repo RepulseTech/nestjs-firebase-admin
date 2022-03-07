@@ -4,19 +4,22 @@
 
 ## Description
 
-Firebase Admin Module for [Nest.js Framework](https://nestjs.com/)
+Firebase Admin v10 Module for [Nest.js Framework](https://nestjs.com/)
 
 ## Installation
 
 ```bash
-$ yarn add @aginix/nestjs-firebase-admin
+$ yarn add @repulsetech/nestjs-firebase-admin
+```
+```bash
+$ npi i @repulsetech/nestjs-firebase-admin -S
 ```
 
 ### Import module
 
 ```typescript
 import { Module } from '@nestjs/common';
-import { FirebaseAdminModule } from '@aginix/nestjs-firebase-admin'
+import { FirebaseAdminModule } from '@repulsetech/nestjs-firebase-admin'
 import * as admin from 'firebase-admin'
 
 @Module({
@@ -53,9 +56,8 @@ export class AppService {
 
 | firebase-admin    | NestJS Library |
 | ----------------- |----------------|
-| `9.xx`            | `master`       |
-| `8.xx`            | `1.xx`         |
+| `10.xx`            | `master`       |
 
 ## License
 
-MIT © [Aginix Technologies Co., Ltd.](https://github.com/Aginix/nestjs-firebase-admin)
+MIT © [Repulse Technologies Pvt. Ltd.](https://github.com/RepulseTech/nestjs-firebase-admin)
