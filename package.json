@@ -20,7 +20,7 @@
   },
   "scripts": {
     "precommit": "lint-staged",
-    "prettier": "prettier src/**/*.ts --write && git status",
+    "prettier": "prettier lib/**/*.ts --write && git status",
     "build": "rimraf dist && npm run build:lib",
     "build:lib": "tsc -p tsconfig.json",
     "prepublish:npm": "npm run build",

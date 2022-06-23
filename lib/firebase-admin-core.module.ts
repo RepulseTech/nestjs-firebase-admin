@@ -8,30 +8,30 @@ import { getRemoteConfig, RemoteConfig } from 'firebase-admin/remote-config';
 import { getFirestore, Firestore } from 'firebase-admin/firestore';
 import { getStorage, Storage } from 'firebase-admin/storage';
 
+const PROVIDERS = [
+  {
+    cls: Auth,
+    get: getAuth,
+  },
+  {
+    cls: Messaging,
+    get: getMessaging,
+  },
+  {
+    cls: RemoteConfig,
+    get: getRemoteConfig,
+  },
+  {
+    cls: Firestore,
+    get: getFirestore,
+  },
+  {
+    cls: Storage,
+    get: getStorage,
+  },
+];
 
-const PROVIDERS = [{
-  cls: Auth,
-  get: getAuth
-},
-{
-  cls: Messaging,
-  get: getMessaging
-},
-{
-  cls: RemoteConfig,
-  get: getRemoteConfig
-},
-{
-  cls: Firestore,
-  get: getFirestore
-},
-{
-  cls: Storage,
-  get: getStorage
-},
-]
-
-const EXPORTS = [...PROVIDERS.map(provider => provider.cls)];
+const EXPORTS = [...PROVIDERS.map((provider) => provider.cls)];
 
 @Global()
 @Module({})
